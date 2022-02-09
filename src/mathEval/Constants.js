@@ -26,6 +26,13 @@ export const DEFAULT_ARGS = {
     'Math.LOG2E': Math.LOG2E,
     'Math.SQRT1_2': Math.SQRT1_2,
     'Math.SQRT2': Math.SQRT2,
+    'Number.MAX_SAFE_INTEGER': Number.MAX_SAFE_INTEGER,
+    'Number.MAX_VALUE': Number.MAX_VALUE,
+    'Number.MIN_SAFE_INTEGER': Number.MIN_SAFE_INTEGER,
+    'Number.MIN_VALUE': Number.MIN_VALUE,
+    'Number.EPSILON': Number.EPSILON,
+    'Number.NEGATIVE_INFINITY': Number.NEGATIVE_INFINITY,
+    'Number.POSITIVE_INFINITY': Number.POSITIVE_INFINITY,
 };
 
 export const FUNCTIONAL_OPERATIONS = {
@@ -50,4 +57,6 @@ export const FUNCTIONAL_OPERATIONS = {
     'Math.asinh': Math.asinh,
     'Math.acosh': Math.acosh,
     'Math.atanh': Math.atanh,
+    'Number.parseFloat': Number.parseFloat,
+    'Number.parseInt': Number.parseInt,
 };
