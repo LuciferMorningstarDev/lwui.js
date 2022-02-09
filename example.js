@@ -1,4 +1,4 @@
-import { a, div, h1, h2, h3, h4, ul, li, pre, code, UIRenderer, UIRouters, button } from './src/lwui.js';
+import { a, div, h1, h2, h3, h4, ul, li, pre, code, UIRenderer, UIRouters, button, evalMath, textarea } from './src/lwui.js';
 
 var preModule = `
 <html lang="en">
@@ -42,6 +42,35 @@ window.addEventListener('DOMContentLoaded', () => {
         )
     )
 }`;
+
+var preEval = `
+import { mathEval } from './src/lwui.js';
+window.addEventListener('DOMContentLoaded', () => {
+    var evaluations = [
+        '10 * -20', 
+        'Math.sin(Math.PI * 2)', 
+        '( 1 + 2 ) * 3 / 2', 
+        '1 + :-12', 
+        '12 + contextVariable + 7 / 4', 
+        '(contextFuncAdd(15, 15) + 1) % 3', 
+        '2 >> 1', '2 << 1'
+    ];
+    var ctx = {
+        contextVariable: 250,
+        contextFuncAdd: (a, b) => a + b,
+    };
+    if (evaluations.length > 0) console.log(\`-------------------------------------\`);
+    for (const src of evaluations) {
+        var lexer = new evalMath.Lexer(src);
+        var compiledExpression = lexer.compile();
+        var result = evalMath.eval(compiledExpression, ctx);
+        console.log(\`Source: \${src}\`);
+        console.log(\`Lexer: \`, lexer);
+        console.log(\`Compiled: \`, compiledExpression);
+        console.log(\`Result: \${result}\`);
+        console.log(\`-------------------------------------\`);
+    }
+}`;
 var clicks = 0;
 window.addEventListener('DOMContentLoaded', () => {
     UIRenderer.render(
@@ -64,17 +93,69 @@ window.addEventListener('DOMContentLoaded', () => {
                     })
                 ).css$({ 'text-align': 'center' }),
                 div(h2('The main idea of LWUI'), div("Sorry for wrong x'ed tags but this way it is impossible to add it otherwise", pre(code(preModule)))),
-                div(h3('Pages available'), ul(li(a('404 Error Page').attr$('href', '#/404'))).css$({ 'list-style': 'none' })).addClass$('pages')
+                div(h3('Pages available'), ul(li(a('404 Error Page').attr$('href', '#/404')), li(a('Mathmatic Evaluations').attr$('href', '#/eval'))).css$({ 'list-style': 'none' })).addClass$('pages')
             ).addClass$('main'),
+            '/eval': div(
+                h3('Mathmatic EvaluationExample'),
+                div(a(h4('start')).attr$('href', '#/'), button('Console Eval Example').click$(consoleMathEvaluationExample), div(pre(code(preEval)))),
+                div(
+                    'ShowCase',
+                    div(textarea('Input').attr$('id', 'evalInput')),
+                    div(
+                        button('Evaluate Mathmatic Expression').click$(() => {
+                            evalExample(document.getElementById('evalInput'));
+                        })
+                    )
+                )
+            ),
             '/404': div(h3('ERROR: That page does not exist'), div(a(h4('start')).attr$('href', '#/'), div(pre(code(pre404))))),
         })
     );
+
     document.querySelectorAll('pre code').forEach((el) => {
         hljs.highlightElement(el);
     });
+
     window.addEventListener('hashchange', () => {
         document.querySelectorAll('pre code').forEach((el) => {
             hljs.highlightElement(el);
         });
     });
 });
+
+function consoleMathEvaluationExample() {
+    var evaluations = ['10 * -20', 'Math.sin(Math.PI * 2)', '( 1 + 2 ) * 3 / 2', '1 + :-12', '12 + contextVariable + 7 / 4', '(contextFuncAdd(15, 15) + 1) % 3', '2 >> 1', '2 << 1'];
+    var ctx = {
+        contextVariable: 250,
+        contextFuncAdd: (a, b) => a + b,
+    };
+
+    if (evaluations.length > 0) console.log(`-------------------------------------`);
+    for (const src of evaluations) {
+        var lexer = new evalMath.Lexer(src);
+        var compiledExpression = lexer.compile();
+        var result = evalMath.eval(compiledExpression, ctx);
+        console.log(`Source: ${src}`);
+        console.log(`Lexer: `, lexer);
+        console.log(`Compiled: `, compiledExpression);
+        console.log(`Result: ${result}`);
+        console.log(`-------------------------------------`);
+    }
+}
+
+function evalExample(textArea) {
+    try {
+        var src = textArea.value;
+        var lexer = new evalMath.Lexer(src);
+        var compiledExpression = lexer.compile();
+        var result = evalMath.eval(compiledExpression);
+        console.log(`Source: ${src}`);
+        console.log(`Lexer: `, lexer);
+        console.log(`Compiled: `, compiledExpression);
+        console.log(`Result: ${result}`);
+        console.log(`-------------------------------------`);
+        alertify.warning('Result: ' + result);
+    } catch (error) {
+        alertify.warning(error.message);
+    }
+}

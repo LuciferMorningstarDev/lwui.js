@@ -1,6 +1,9 @@
 import Tag from './Tag.js';
 import render from './Renderer.js';
 import hashRouter, { locationRouter } from './Routers.js';
+import mathEvaluation from './mathEval/eval.js';
+
+export var evalMath = mathEvaluation;
 
 /**
  * Create a new canvas
