@@ -28,18 +28,23 @@ import { Router } from './Routers.js';
 
 import defaultsSheet from './css/defaults.css' assert { type: 'css' };
 
+window.sassLoaded = false;
+
 /**
  * render current element at the page ( Inside the root element )
  * @param {HTMLElement} rootElement - the element where the content gets rendered
  * @param {HTMLElement | Router} tag - the tag which should be rendered ( U can use the hashRouter provided with this framework )
  */
 var render = (rootElement, ...tags) => {
+    var sassCompiler = document.createElement('script');
+    sassCompiler.src = 'https://unpkg.com/sass.js@latest/dist/sass.js';
+    sassCompiler.onload = () => (window.sassLoaded = true);
+    document.head.appendChild(sassCompiler);
     addSheets(defaultsSheet);
     for (let tag of tags) {
         if (tag instanceof Router) {
             return rootElement.appendChild(tag.div());
-        }
-        rootElement.appendChild(tag);
+        } else rootElement.appendChild(tag);
     }
 };
 
@@ -55,6 +60,13 @@ export var addSheets = (...sheets) => {
  */
 export var addSheetAsArray = (sheets) => {
     document.adoptedStyleSheets = [...(document.adoptedStyleSheets != null ? document.adoptedStyleSheets : []), ...sheets];
+};
+
+export var loadSass = async (sassSheet) => {
+    while (!window.sassLoaded) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    console.log(Sass);
 };
 
 export default render;

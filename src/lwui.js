@@ -25,7 +25,7 @@
  */
 
 import Tag from './Tag.js';
-import render, { addSheets } from './Renderer.js';
+import render, { addSheets, addSheetAsArray, loadSass } from './Renderer.js';
 import hashRouter, { locationRouter, syncRouters } from './Routers.js';
 import mathEvaluation from './mathEval/eval.js';
 
@@ -229,4 +229,6 @@ export var UIRouters = {
 export var UIRenderer = {
     render: render,
     addSheets: addSheets,
+    addSheetAsArray: addSheetAsArray,
+    loadSass: loadSass,
 };
