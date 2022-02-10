@@ -25,8 +25,8 @@
  */
 
 import Tag from './Tag.js';
-import render from './Renderer.js';
-import hashRouter, { locationRouter } from './Routers.js';
+import render, { addSheets } from './Renderer.js';
+import hashRouter, { locationRouter, syncRouters } from './Routers.js';
 import mathEvaluation from './mathEval/eval.js';
 
 export var evalMath = mathEvaluation;
@@ -189,6 +189,7 @@ export var li = (...children) => Tag('li', ...children);
 export var UIRouters = {
     hashRouter: hashRouter,
     locationRouter: locationRouter,
+    syncRouters: syncRouters,
 };
 
 /**
@@ -196,4 +197,5 @@ export var UIRouters = {
  */
 export var UIRenderer = {
     render: render,
+    addSheets: addSheets,
 };

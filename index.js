@@ -24,35 +24,6 @@
  *   Github: https://github.com/LuciferMorningstarDev
  */
 
-import { Router } from './Routers.js';
-
-import defaultsSheet from './css/defaults.css' assert { type: 'css' };
-
-/**
- * render current element at the page ( Inside the root element )
- * @param {HTMLElement} rootElement - the element where the content gets rendered
- * @param {HTMLElement | Router} tag - the tag which should be rendered ( U can use the hashRouter provided with this framework )
- */
-var render = (rootElement, tag) => {
-    addSheets(defaultsSheet);
-    if (tag instanceof Router) {
-        return rootElement.appendChild(tag.div());
-    }
-    rootElement.appendChild(tag);
-};
-
-/**
- * @param {StyleSheet[]} sheets
- */
-export var addSheets = (...sheets) => {
-    document.adoptedStyleSheets = [...(document.adoptedStyleSheets != null ? document.adoptedStyleSheets : []), ...sheets];
-};
-
-/**
- * @param {StyleSheet[]} sheets
- */
-export var addSheetAsArray = (sheets) => {
-    document.adoptedStyleSheets = [...(document.adoptedStyleSheets != null ? document.adoptedStyleSheets : []), ...sheets];
-};
-
-export default render;
+import * as LWUI from './src/lwui.js';
+export default LWUI;
+export const lwui = LWUI;

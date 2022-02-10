@@ -1,0 +1,25 @@
+{
+    "name": "lwui.js",
+    "version": "1.0.0",
+    "description": "LWUI.JS is a lightweight UI / Web framework which allows you to easily render route based elements on your page",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LuciferMorningstarDev/lwui.js.git"
+    },
+    "keywords": [
+        "ui",
+        "ui-framework",
+        "js-framework",
+        "frontend-framework"
+    ],
+    "author": "LuciferMorningstarDev",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LuciferMorningstarDev/lwui.js/issues"
+    },
+    "homepage": "https://github.com/LuciferMorningstarDev/lwui.js#readme"
+}

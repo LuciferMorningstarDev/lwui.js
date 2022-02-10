@@ -25,6 +25,7 @@
  */
 
 import { a, div, h1, h2, h3, h4, ul, li, pre, code, UIRenderer, UIRouters, button, evalMath, textarea } from './src/lwui.js';
+import exampleStyles from './example.css' assert { type: 'css' };
 
 var preModule = `
 <html lang="en">
@@ -100,6 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
 }`;
 var clicks = 0;
 window.addEventListener('DOMContentLoaded', () => {
+    UIRenderer.addSheets(exampleStyles);
     UIRenderer.render(
         document.getElementById('root'),
         UIRouters.hashRouter({
@@ -120,7 +122,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     })
                 ).css$({ 'text-align': 'center' }),
                 div(h2('The main idea of LWUI'), div('Creating Routers and Elements for your page...', pre(code(preModule)))),
-                div(h3('Pages available'), ul(li(a('404 Error Page').attr$('href', '#/404')), li(a('Mathematic Evaluations').attr$('href', '#/eval'))).css$({ 'list-style': 'none' })).addClass$('pages')
+                div(h3('Pages available'), ul(li(a('404 Error Page').attr$('href', '#/404')), li(a('Mathematic Evaluations').attr$('href', '#/eval')), li(a('More Complex Routing').attr$('href', '#/complex-routing/'))).css$({ 'list-style': 'none' })).addClass$('pages')
             ).addClass$('main'),
             '/eval': div(
                 h3('Mathematic EvaluationExample'),
@@ -135,9 +137,20 @@ window.addEventListener('DOMContentLoaded', () => {
                     )
                 )
             ),
+            '/complex-routing/': UIRouters.hashRouter(
+                {
+                    '/': div(h1('Start conplex-routing'), a('More').attr$('href', '#/complex-routing/more'), a('Homepage').attr$('href', '#/')),
+                    '/more': div(h1('Start conplex-routing - More'), a('Start').attr$('href', '#/complex-routing/'), a('Homepage').attr$('href', '#/')),
+                },
+                '/complex-routing'
+            ),
             '/404': div(h3('ERROR: That page does not exist'), div(a(h4('start')).attr$('href', '#/'), div(pre(code(pre404))))),
         })
     );
+
+    setTimeout(() => {
+        UIRouters.syncRouters();
+    }, 750);
 
     document.querySelectorAll('pre code').forEach((el) => {
         hljs.highlightElement(el);
