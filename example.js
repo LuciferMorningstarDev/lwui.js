@@ -119,17 +119,17 @@ window.addEventListener('DOMContentLoaded', () => {
                         clicks++;
                     })
                 ).css$({ 'text-align': 'center' }),
-                div(h2('The main idea of LWUI'), div("Sorry for wrong x'ed tags but this way it is impossible to add it otherwise", pre(code(preModule)))),
-                div(h3('Pages available'), ul(li(a('404 Error Page').attr$('href', '#/404')), li(a('Mathmatic Evaluations').attr$('href', '#/eval'))).css$({ 'list-style': 'none' })).addClass$('pages')
+                div(h2('The main idea of LWUI'), div('Creating Routers and Elements for your page...', pre(code(preModule)))),
+                div(h3('Pages available'), ul(li(a('404 Error Page').attr$('href', '#/404')), li(a('Mathematic Evaluations').attr$('href', '#/eval'))).css$({ 'list-style': 'none' })).addClass$('pages')
             ).addClass$('main'),
             '/eval': div(
-                h3('Mathmatic EvaluationExample'),
+                h3('Mathematic EvaluationExample'),
                 div(a(h4('start')).attr$('href', '#/'), button('Console Eval Example').click$(consoleMathEvaluationExample), div(pre(code(preEval)))),
                 div(
                     'ShowCase',
                     div(textarea('Input').attr$('id', 'evalInput')),
                     div(
-                        button('Evaluate Mathmatic Expression').click$(() => {
+                        button('Evaluate Mathematic Expression').click$(() => {
                             evalExample(document.getElementById('evalInput'));
                         })
                     )
