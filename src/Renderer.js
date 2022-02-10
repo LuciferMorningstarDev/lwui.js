@@ -33,12 +33,14 @@ import defaultsSheet from './css/defaults.css' assert { type: 'css' };
  * @param {HTMLElement} rootElement - the element where the content gets rendered
  * @param {HTMLElement | Router} tag - the tag which should be rendered ( U can use the hashRouter provided with this framework )
  */
-var render = (rootElement, tag) => {
+var render = (rootElement, ...tags) => {
     addSheets(defaultsSheet);
-    if (tag instanceof Router) {
-        return rootElement.appendChild(tag.div());
+    for (let tag of tags) {
+        if (tag instanceof Router) {
+            return rootElement.appendChild(tag.div());
+        }
+        rootElement.appendChild(tag);
     }
-    rootElement.appendChild(tag);
 };
 
 /**

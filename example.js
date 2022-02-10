@@ -24,7 +24,7 @@
  *   Github: https://github.com/LuciferMorningstarDev
  */
 
-import { a, div, h1, h2, h3, h4, ul, li, pre, code, UIRenderer, UIRouters, button, evalMath, textarea } from './src/lwui.js';
+import { a, div, center, h1, h2, h3, h4, ul, li, pre, code, i, UIRenderer, UIRouters, button, evalMath, textarea } from './src/lwui.js';
 import exampleStyles from './example.css' assert { type: 'css' };
 
 var preModule = `
@@ -104,6 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
     UIRenderer.addSheets(exampleStyles);
     UIRenderer.render(
         document.getElementById('root'),
+        div(center(a('https://github.com/LuciferMorningstarDev/lwui.js', i(`fab fa-github fa-3x`)).attr$('target', '_blank'))).attr$('style', 'position:fixed;top:5;right:0;background:black;opacity:0.5;'),
         UIRouters.hashRouter({
             '/': div(
                 div(

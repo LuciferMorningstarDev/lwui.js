@@ -46,6 +46,13 @@ export var canvas = (...children) => Tag('canvas', ...children);
 export var div = (...children) => Tag('div', ...children);
 
 /**
+ * Create a new center
+ * @param  {...HTMLElement | String} children - the attached children of this element
+ * @returns center
+ */
+export var center = (...children) => Tag('center', ...children);
+
+/**
  * Create a new empty div
  * @returns empty
  */
@@ -97,10 +104,20 @@ export var h6 = (...children) => Tag('h6', ...children);
 
 /**
  * Create a new a
+ * @param  {String} href - the link to the element
  * @param  {...HTMLElement | String} children - the attached children of this element
  * @returns a
  */
-export var a = (...children) => Tag('a', ...children);
+export var a = (href = '', ...children) => {
+    if (typeof href == 'string') {
+        try {
+            let url = new URL(href);
+            return Tag('a', ...children).attr$('href', href);
+        } catch (err) {
+            return Tag('a', href, ...children);
+        }
+    } else return Tag('a', href, ...children);
+};
 /**
  * Create a new p
  * @param  {...HTMLElement | String} children - the attached children of this element
@@ -153,16 +170,30 @@ export var pre = (...children) => Tag('pre', ...children);
 
 /**
  * Create a new img
- * @param  {...HTMLElement | String} children - the attached children of this element
+ * @param  {String} src -  the image source
  * @returns img
  */
 export var img = (src) => Tag('img').attr$('src', src);
 /**
  * Create a new svg
- * @param  {...HTMLElement | String} children - the attached children of this element
+ * @param  {String} src - the image source
  * @returns svg
  */
 export var svg = (src) => Tag('svg').attr$('src', src);
+
+/**
+ * Create a new icon
+ * @param  {String} classes - the icon classes
+ * @returns icon
+ */
+export var icon = (classes) => Tag('i').attr$('class', classes);
+
+/**
+ * Create a new icon
+ * @param  {String} classes - the icon classes
+ * @returns icon
+ */
+export var i = (classes) => Tag('i').attr$('class', classes);
 
 /**
  * Create a new ul
