@@ -53,7 +53,8 @@ window.addEventListener('DOMContentLoaded', () => {
         '1 + :-12', 
         '12 + contextVariable + 7 / 4', 
         '(contextFuncAdd(15, 15) + 1) % 3', 
-        '2 >> 1', '2 << 1'
+        '2 >> 1', 
+        '2 << 1'
     ];
     var ctx = {
         contextVariable: 250,
